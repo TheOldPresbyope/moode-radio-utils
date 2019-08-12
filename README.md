@@ -1,6 +1,6 @@
 # Tools to save and load user-defined radio stations in moOde
 
-The files here are intended to aid users of the moOde audio player in saving (e.g., exporting) and loading (e.g., importing) their user-defined radio stations in bulk. Possible use-cases include transferring the stations
+The files in this repo are intended to aid users of the moOde audio player in saving (e.g., exporting) and loading (e.g., importing) their user-defined radio stations in bulk. Possible use-cases include transferring the stations
 * from a player running an old moOde release to the same player after a clean install of a new release
 * between moOde players running the same or different moOde releases
 * between moOde users
@@ -32,7 +32,8 @@ It will create a file ***myradios.tar.gz*** in the current working directory. Ob
 **loadmyradios.py** - (assumes you have cloned the moode-radio-utils repo as described above). From the command line of the target moOde player. Make sure the ***myradios.tar.gz*** file is in the same directory as **loadmyradios.py**.
 ...more to come...
 
-**myradios.tar.gz** - an example file created by savemyradios.py on a moOde player. It contains all the information needed to load two stations in the player on which **loadmyradios.py** is run.
+**myradios.tar.gz** - an example file created by savemyradios.py on a moOde 6.0. player. It contains all the information needed to load three stations into the player on which **loadmyradios.py** is run.
 
 * Grateful Dead Live at Carousel Ballroom 1968 - a pseudo-radio station streaming tracks from the 1968-02-04 concert out of a [Live Music Archive](https://archive.org/details/gd1968-02-14.sbd.douglas-cleef.2267.shnf) holding
+* KVCU Radio 1190 University of Colorado - a [college radio station](http://www.radio1190.org/) affiliated with the University of Colorado Boulder.
 * MANGORADIO - a [German Internet radio station](https://mangoradio.de/) selected at random from the [Community Radio Browser]( http://www.radio-browser.info/gui/#!/)
