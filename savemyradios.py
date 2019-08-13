@@ -37,7 +37,14 @@
 # - allow user to select which user-defined radio stations to save
 # - make more Pythonic so I won't be embarrassed to show it 
 
+
 import json, os, shutil, sqlite3, sys, tempfile
+
+# moode-specific locations
+moodesqlite3 = '/var/local/www/db/moode-sqlite3.db'
+plssrc = '/var/lib/mpd/music/RADIO/'
+jpgsrc = '/var/www/images/radio-logos/'
+thumbssrc = jpgsrc+'thumbs/'
 
 print("Save user-defined radio stations to 'myradios.tar.gz' in the")
 print("current working directory, overwriting existing file if present")
@@ -46,9 +53,9 @@ print("current working directory, overwriting existing file if present")
 if not input("Proceed? (y/n): ").lower().strip()[:1] == "y": sys.exit(1)
 
 try:
-  conn = sqlite3.connect('/var/local/www/db/moode-sqlite3.db')
+  conn = sqlite3.connect(moodesqlite3)
 except:
-  print("Couldn't connect to /var/local/www/db/moode-sqlite3.db")
+  print("Couldn't connect to " + moodesqlite3)
   sys.exit()
 
 # cfg_radio schema: (id , station , name , type , logo)
@@ -80,9 +87,6 @@ with tempfile.TemporaryDirectory() as tmprootdir:
   os.mkdir(plsdest)
   os.mkdir(jpgdest)
   os.mkdir(thumbdest)
-  plssrc = '/var/lib/mpd/music/RADIO/'
-  jpgsrc = '/var/www/images/radio-logos/'
-  thumbssrc = jpgsrc+'thumbs/'
 
   # save the radios.json file
   datafile=open(tmprootdir+'/radios.json','w')
@@ -90,7 +94,9 @@ with tempfile.TemporaryDirectory() as tmprootdir:
   datafile.close()
 
   # copy the .pls and.jpg files
+  rowcnt = 0
   for row in radios:
+    rowcnt += 1
     name = row['name']
     plsfile = plssrc+name+'.pls'
     jpgfile = jpgsrc+name+'.jpg'
@@ -107,7 +113,7 @@ with tempfile.TemporaryDirectory() as tmprootdir:
   # don't break current context until this file is written
   shutil.make_archive('myradios','gztar',tmprootdir)    
 
-print('myradios.tar.gz written to current working directory')
+print(rowcnt, "station(s) saved")
 print("'tar tf myradios.tar.gz' to see its contents")
 # note that temporary directory is removed when the context is
 # exited we we don't have to.
