@@ -47,4 +47,4 @@ Obviously you need to save the tar file off the current system if you intend to 
 **myradios.tar.gz** - an example file created by savemyradios.py on a moOde 6.0.0 player. It contains all the information needed to load two stations into the player on which loadmyradios.py is run.
 
 * Grateful Dead Live at Carousel Ballroom 1968 - a pseudo-radio station with a playlist of tracks from the 1968-02-04 concert. The tracks are streamed from the [Live Music Archive](https://archive.org/details/gd1968-02-14.sbd.douglas-cleef.2267.shnf)
-* MANGORADIO - a regular, German [Internet radio station](https://mangoradio.de/) selected at random from the [Community Radio Browser]( http://www.radio-browser.info/gui/#!/)
+* MANGORADIO - a [German Internet radio station](https://mangoradio.de/) selected at random from the [Community Radio Browser]( http://www.radio-browser.info/gui/#!/)
