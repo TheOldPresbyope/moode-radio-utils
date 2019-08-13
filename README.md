@@ -40,9 +40,27 @@ Proceed? (y/n): y
 ```
 Obviously you need to save the tar file off the current system if you intend to do a clean install of a new release. Otherwise copy or transfer it to the target moOde player. 
 
-**loadmyradios.py** - (assumes you have cloned the moode-radio-utils repo as described above). From the command line of the target moOde player, make sure the myradios.tar.gz file is in the same directory as loadmyradios.py.
+**loadmyradios.py** - (clone the moode-radio-utils repo as described above). Place the myradios.tar.gz file in the same directory as loadmyradios.py. Invoke the script as superuser (required because of moOde directory permissions). As above this can be done several ways
+```
+option (1)
+sudo python3 loadmyradios.py
 
-...work in process...
+option (2)
+chmod +x loadmyradios.py
+sudo ./loadmyradios.py
+```
+Once the script has run, refresh the moOde Radio Directory to see the new entries.
+
+Here's an example of the CLI dialogue (using the myradios.tar.gz file in this repo):
+```
+pi@moode:~/ $ sudo ./loadmyradios.py
+Load user-defined radio stations from myradios.tar.gz  in the current working directory
+Proceed? (y/n): y
+adding station 'Grateful Dead Live at Carousel Ballroom - 1968'
+adding station 'MANGORADIO'
+2 station(s) added
+
+```
 
 **myradios.tar.gz** - an example file created by savemyradios.py on a moOde 6.0.0 player. It contains all the information needed to load two stations into the player on which loadmyradios.py is run.
 
