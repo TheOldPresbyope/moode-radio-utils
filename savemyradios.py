@@ -25,15 +25,16 @@
 #      type='u' 
 #   2) there is a 1-to-1 correspondence between cfg_radio entries
 #      and .pls files. 
-#   ***In particular, this script does not account for any user-added 
+#   ***In particular, this script ignores cfg_entries with no
+#      corresponding .pls file and does not account for any user-added 
 #      .pls files which don't correspond to a cfg_radio entry.***
 
 # Creates a temporary directory for working space and deletes it when done
 
-# author: TheOldPresbyope, 20190811
+# author: TheOldPresbyope, 20190813
 
-# TODO -- likely never;)
-# - allow user to input a alternative save-file name (less the .tar.gz suffix).
+# TODO -- perhaps never;)
+# - allow user to input a alternative tar file name (less the .tar.gz suffix).
 # - allow user to select which user-defined radio stations to save
 # - make more Pythonic so I won't be embarrassed to show it 
 
@@ -96,16 +97,16 @@ with tempfile.TemporaryDirectory() as tmprootdir:
   # copy the .pls and.jpg files
   rowcnt = 0
   for row in radios:
-    rowcnt += 1
     name = row['name']
     plsfile = plssrc+name+'.pls'
+    if not os.path.isfile(plsfile):
+      # this shouldn't happen, but just in case
+      print("skiping cfg_radio entry with name= '"+name+"', no corresponding .pls file") 
+      continue
+    shutil.copy(plsfile, plsdest)
+    rowcnt += 1
     jpgfile = jpgsrc+name+'.jpg'
     jpgthumb = thumbssrc+name+'.jpg'
-    # there should always be a plsfile but just in case
-    if os.path.isfile(plsfile):
-      shutil.copy(plsfile, plsdest) 
-    else:
-      print("Hmmm, missing "+plsfile)
     if os.path.isfile(jpgfile):
       shutil.copy(jpgfile,jpgdest)
     if os.path.isfile(jpgthumb):
