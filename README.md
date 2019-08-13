@@ -58,7 +58,7 @@ Load user-defined radio stations from myradios.tar.gz  in the current working di
 Proceed? (y/n): y
 adding station 'Grateful Dead Live at Carousel Ballroom - 1968'
 adding station 'MANGORADIO'
-2 station(s) added
+2 station(s) loaded
 
 ```
 
