@@ -16,7 +16,7 @@ cd moode-radio-utils
 ```
 and there you are.
 
-## <tl;dr> how to use
+## How to use
 
 **savemyradios.py** - From the command line of the source moOde player, either invoke this script as an argument to Python3 (not Python2!) or make sure it is marked executable and then invoke it directly, e.g.,
 ```
@@ -27,7 +27,16 @@ option (2)
 chmod +x savemyradios.py
 ./savemyradios.py
 ```
-It will create a file ***myradios.tar.gz*** in the current working directory. Obviously you need to save it off the current system if you intend to do a clean install of a new release. Otherwise copy or transfer it to the target moOde player. 
+
+The script creates ***myradios.tar.gz*** in the current working directory. Here's an example of the CLI dialogue:
+```pi@moode:~/ $ ./savemyradios.py
+Save user-defined radio stations to 'myradios.tar.gz' in the
+current working directory, overwriting existing file if present
+Proceed? (y/n): y
+3 station(s) saved
+'tar tf myradios.tar.gz' to see its contents
+```
+Obviously you need to save the tar file off the current system if you intend to do a clean install of a new release. Otherwise copy or transfer it to the target moOde player. 
 
 **loadmyradios.py** - (assumes you have cloned the moode-radio-utils repo as described above). From the command line of the target moOde player, make sure the myradios.tar.gz file is in the same directory as loadmyradios.py.
 
