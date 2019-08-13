@@ -101,7 +101,7 @@ with tempfile.TemporaryDirectory() as tmprootdir:
     plsfile = plssrc+name+'.pls'
     if not os.path.isfile(plsfile):
       # this shouldn't happen, but just in case
-      print("skiping cfg_radio entry with name= '"+name+"', no corresponding .pls file") 
+      print(f"skipping cfg_radio entry with name= '{name}', no corresponding .pls file") 
       continue
     shutil.copy(plsfile, plsdest)
     rowcnt += 1
@@ -114,7 +114,7 @@ with tempfile.TemporaryDirectory() as tmprootdir:
   # don't break current context until this file is written
   shutil.make_archive('myradios','gztar',tmprootdir)    
 
-print(rowcnt, "station(s) saved")
+print(f"{rowcnt} station(s) saved")
 print("'tar tf myradios.tar.gz' to see its contents")
 # note that temporary directory is removed when the context is
 # exited we we don't have to.
