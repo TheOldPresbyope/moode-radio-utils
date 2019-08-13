@@ -107,7 +107,7 @@ for entry in radios:
     shutil.copy(thumbfile,thumbsdest) 
   rowsadded+=1
 
-print(f"{rowsadded} station(s) added")
+print(f"{rowsadded} station(s) loaded")
 
 # finally, force mpd to pickup the changes by bumping the times on all the 
 # .pls files in the RADIO directory and dropping into the shell to run mpc.
