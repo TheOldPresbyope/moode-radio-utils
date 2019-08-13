@@ -66,3 +66,10 @@ adding station 'MANGORADIO'
 
 * Grateful Dead Live at Carousel Ballroom 1968 - a pseudo-radio station with a playlist of tracks from the 1968-02-04 concert. The tracks are streamed from the [Live Music Archive](https://archive.org/details/gd1968-02-14.sbd.douglas-cleef.2267.shnf)
 * MANGORADIO - a [German Internet radio station](https://mangoradio.de/) selected at random from the [Community Radio Browser]( http://www.radio-browser.info/gui/#!/)
+
+**TODO**
+* The scripts are hardwired to write/read myfiles.tar.gz. It would be nice to allow the user to specify a name.
+* The scripts batch save/load all the user-defined radio stations. It would be nice to allow the user to specify the stations to be saved, to be loaded.
+* There is a modicum of error checking in the scripts but they are hardly bulletproof. It would be nice to cover more bases.
+* The scripts are basically procedural code. It would be nice to make them more Pythonic.
+* None of this is a priority for me.
