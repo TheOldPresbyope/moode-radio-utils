@@ -5,7 +5,7 @@ The files in this repo are intended to aid users of recent vintage (5.x, 6.0) [m
 * between moOde players running the same or different moOde releases
 * between moOde users
 
-Existing user-defined stations on the destination player are left untouched.
+Existing user-defined stations on the destination player are left untouched and stations to be loaded which match existing ones in name are skipped.
 
 These files are not integrated into the moOde UI in any way. All operations take place on the command line of the moOde player.
 
@@ -40,7 +40,7 @@ Proceed? (y/n): y
 ```
 Obviously you need to save the tar file off the current system if you intend to do a clean install of a new release. Otherwise copy or transfer it to the target moOde player. 
 
-**loadmyradios.py** - (clone the moode-radio-utils repo as described above). Place the myradios.tar.gz file in the same directory as loadmyradios.py. Invoke the script as superuser (required because of moOde directory permissions). As above this can be done several ways
+**loadmyradios.py** - (clone the moode-radio-utils repo as described above). From the command line of the target moOde player, ensure the myradios.tar.gz file is in the same directory as loadmyradios.py. Invoke the script as superuser (required because of moOde directory permissions). As above this can be done several ways
 ```
 option (1)
 sudo python3 loadmyradios.py
@@ -62,14 +62,14 @@ adding station 'MANGORADIO'
 
 ```
 
-**myradios.tar.gz** - an example file created by savemyradios.py on a moOde 6.0.0 player. It contains all the information needed to load two stations into the player on which loadmyradios.py is run.
+**myradios.tar.gz** - an example file created by savemyradios.py on a moOde 6.0.0 player. It contains the data and image files needed to load two stations into the player on which loadmyradios.py is run.
 
 * Grateful Dead Live at Carousel Ballroom 1968 - a pseudo-radio station with a playlist of tracks from the 1968-02-04 concert. The tracks are streamed from the [Live Music Archive](https://archive.org/details/gd1968-02-14.sbd.douglas-cleef.2267.shnf)
 * MANGORADIO - a [German Internet radio station](https://mangoradio.de/) selected at random from the [Community Radio Browser]( http://www.radio-browser.info/gui/#!/)
 
 **TODO**
 * The scripts are hardwired to write/read myfiles.tar.gz. It would be nice to allow the user to specify a name.
-* The scripts batch save/load all the user-defined radio stations. It would be nice to allow the user to specify the stations to be saved, to be loaded.
+* The scripts batch save/load all the user-defined radio stations. It would be nice to allow the user to specify the stations to be saved or at least the ones to be loaded.
 * There is a modicum of error checking in the scripts but they are hardly bulletproof. It would be nice to cover more bases.
 * The scripts are basically procedural code. It would be nice to make them more Pythonic.
 * None of this is a priority for me.
