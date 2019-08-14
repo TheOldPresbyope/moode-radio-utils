@@ -33,7 +33,8 @@ chmod +x savemyradios.py
 ```
 
 The script creates ***myradios.tar.gz*** in the current working directory. Here's an example of the CLI dialogue:
-```pi@moode:~/ $ ./savemyradios.py
+```
+pi@moode:~/ $ ./savemyradios.py
 Save user-defined radio stations to 'myradios.tar.gz' in the
 current working directory, overwriting existing file if present
 Proceed? (y/n): y
