@@ -1,6 +1,6 @@
 # Tools to save and load user-defined radio stations in moOde
 
-The files in this repo are intended to aid users of recent vintage [moOde](http://moodeaudio.org) audio players in saving (e.g., exporting) and loading (e.g., importing) their user-defined radio stations in bulk. They have been tested in moOde 5.3.1 (Raspbian Stretch) and moOde 6.0.0 (Raspbian Buster). 
+The files in this repo are intended to aid users of recent vintage [moOde](http://moodeaudio.org) audio players in saving (e.g., exporting) and loading (e.g., importing) their user-defined radio stations in bulk. They have been tested in moOde 5.3.1 (Raspbian Stretch) and moOde 6.0.0 (Raspbian Buster), which means they are known to work in Python 3.5.3 and above.
 
 Possible use-cases include transferring the stations
 * into a freshly installed moOde player
@@ -40,7 +40,7 @@ Proceed? (y/n): y
 2 station(s) saved
 'tar tf myradios.tar.gz' to see its contents
 ```
-Obviously you need to save the tar file off the current system if you intend to do a clean (re)install. Copy or transfer it to the destination moOde player.
+Obviously you need to save the tar file off the current system if you intend to do a clean (re)install. To use, copy it to the destination moOde player.
 
 **loadmyradios.py** - On the destination moOde player, ensure the myradios.tar.gz file is in the same directory as loadmyradios.py and from the command line invoke the script as superuser (required because of moOde directory permissions). As above this can be done several ways
 ```
@@ -51,7 +51,7 @@ option (2)
 chmod +x loadmyradios.py
 sudo ./loadmyradios.py
 ```
-Once the script has run, refresh the moOde Radio Directory (click the circular arrow in the upper-left of the UI) to see the new entries.
+Once the script has run, refresh the moOde Radio Directory (click the circular arrow in the upper-left of the UI) to see the new entries. (Currently actually need to reboot. See [BUGS](../master/BUGS.md))
 
 Here's an example of the CLI dialogue (using the myradios.tar.gz file in this repo):
 ```
@@ -70,8 +70,9 @@ adding station 'MANGORADIO'
 * MANGORADIO - a [German Internet radio station](https://mangoradio.de/) selected at random from the [Community Radio Browser]( http://www.radio-browser.info/gui/#!/)
 
 **TODO**
+* Fix the need-to-reboot bug.
 * The scripts are hardwired to write/read myfiles.tar.gz. It would be nice to allow the user to specify a name.
 * The scripts batch save/load all the user-defined radio stations. It would be nice to allow the user to specify the stations to be saved or at least the ones to be loaded.
 * There is a modicum of error checking in the scripts but they are hardly bulletproof. It would be nice to cover more bases.
 * The scripts are basically procedural code. It would be nice to make them more Pythonic.
-* None of these items is a priority for me.
+* Only the first of these items is a priority for me.
