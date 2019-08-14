@@ -16,9 +16,9 @@
 #                    use even though at present they appear always
 #                    another db while type and logo appear always
 #                    to be 'u' and 'local' for user-defines
-# ./pls          --- dir containing all the .pls files
-# ./jpg          --- dir containing the .jpg files if they exist
-# ./jpg/thumbs   --- dir containing the thumb jpg files if they exist 
+# ./RADIO        --- dir containing all the .pls files
+# ./logos        --- dir containing the logo .jpg files if they exist
+# ./logos/thumbs --- dir containing the thumb jpg files if they exist 
 
 # Assumptions:
 #   1) all user-defined stations appear in cfg_radio and are tagged
@@ -43,9 +43,9 @@ import json, os, shutil, sqlite3, sys, tempfile
 
 # moode-specific locations
 moodesqlite3 = '/var/local/www/db/moode-sqlite3.db'
-plssrc = '/var/lib/mpd/music/RADIO/'
-jpgsrc = '/var/www/images/radio-logos/'
-thumbssrc = jpgsrc+'thumbs/'
+RADIOsrc = '/var/lib/mpd/music/RADIO/'
+logosrc = '/var/www/images/radio-logos/'
+thumbsrc = logosrc+'thumbs/'
 
 print("Save user-defined radio stations to 'myradios.tar.gz' in the")
 print("current working directory, overwriting existing file if present")
@@ -82,11 +82,11 @@ if not radios:
 
 # use tmprootdir as context manager
 with tempfile.TemporaryDirectory() as tmprootdir:
-  plsdest=tmprootdir+'/pls/'
-  jpgdest=tmprootdir+'/jpg/'
-  thumbdest=jpgdest+'thumbs/'
-  os.mkdir(plsdest)
-  os.mkdir(jpgdest)
+  RADIOdest=tmprootdir+'/RADIO/'
+  logodest=tmprootdir+'/logos/'
+  thumbdest=logodest+'thumbs/'
+  os.mkdir(RADIOdest)
+  os.mkdir(logodest)
   os.mkdir(thumbdest)
 
   # save the radios.json file
@@ -98,23 +98,23 @@ with tempfile.TemporaryDirectory() as tmprootdir:
   rowcnt = 0
   for row in radios:
     name = row['name']
-    plsfile = plssrc+name+'.pls'
-    if not os.path.isfile(plsfile):
+    RADIOfile = RADIOsrc+name+'.pls'
+    if not os.path.isfile(RADIOfile):
       # this shouldn't happen, but just in case
-      print(f"skipping cfg_radio entry with name= '{name}', no corresponding .pls file") 
+      print("skipping cfg_radio entry with name= '{}', no corresponding .pls file".format(name)) 
       continue
-    shutil.copy(plsfile, plsdest)
+    shutil.copy(RADIOfile, RADIOdest)
     rowcnt += 1
-    jpgfile = jpgsrc+name+'.jpg'
-    jpgthumb = thumbssrc+name+'.jpg'
-    if os.path.isfile(jpgfile):
-      shutil.copy(jpgfile,jpgdest)
-    if os.path.isfile(jpgthumb):
-      shutil.copy(jpgthumb,thumbdest)
+    logofile = logosrc+name+'.jpg'
+    thumbfile = thumbsrc+name+'.jpg'
+    if os.path.isfile(logofile):
+      shutil.copy(logofile,logodest)
+    if os.path.isfile(thumbfile):
+      shutil.copy(thumbfile,thumbdest)
   # don't break current context until this file is written
   shutil.make_archive('myradios','gztar',tmprootdir)    
 
-print(f"{rowcnt} station(s) saved")
+print("{} station(s) saved".format(rowcnt))
 print("'tar tf myradios.tar.gz' to see its contents")
 # note that temporary directory is removed when the context is
 # exited we we don't have to.

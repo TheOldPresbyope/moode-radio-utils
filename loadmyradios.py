@@ -36,17 +36,17 @@ myfile = 'myradios.tar.gz'
 # be mindful of '/'
 moodesqlite3='/var/local/www/db/moode-sqlite3.db'
 RADIOdest = '/var/lib/mpd/music/RADIO/'
-logosdest = '/var/www/images/radio-logos/'
-thumbsdest = logosdest+'thumbs/'
+logodest = '/var/www/images/radio-logos/'
+thumbdest = logodest+'thumbs/'
 
 if not os.path.isfile(myfile):
-  print(f"Oops, couldn't find {myfile}'")
+  print("Oops, couldn't find {}".format(myfile))
   sys.exit()
 
 try:
   conn = sqlite3.connect(moodesqlite3)
 except:
-  print(f"Oops, couldn't connect to {moodesqlite3}")
+  print("Oops, couldn't connect to {}".format(moodesqlite3))
   sys.exit()
 
 # create a temporary work space: note that by defining the obj first, Python
@@ -55,9 +55,9 @@ tmpdirobj=tempfile.TemporaryDirectory()
 tmpdir=tmpdirobj.name
 
 #  be mindful of  '/' 
-RADIOsrc = tmpdir+'/pls/'
-logossrc = tmpdir+'/jpg/'
-thumbssrc = logossrc+'thumbs/'
+RADIOsrc = tmpdir+'/RADIO/'
+logosrc = tmpdir+'/logos/'
+thumbsrc = logosrc+'thumbs/'
 
 tar = tarfile.open(myfile)
 tar.extractall(path=tmpdir)
@@ -87,27 +87,27 @@ for entry in radios:
   cur = conn.cursor()
   cur.execute("SELECT * FROM cfg_radio WHERE name=?", (name,))
   if cur.fetchone():
-    print(f"skipping duplicate entry: name= '{name}'")
+    print("skipping duplicate entry: name= '{}'".format(name))
     continue
 
   # get here if entry not already in table (jury seems to be out on reusing cursor or not so I don't) 
-  print(f"adding station '{name}'")
+  print("adding station '{}'".format(name))
   cur = conn.cursor()
   # following command assumes order of columns. The more complicated named-based
   # access to columns might be more future-proof
   cur.execute("INSERT INTO cfg_radio VALUES (?,?,?,?,?)", (None, entry['station'], name, entry['type'], entry['logo']))
   conn.commit()
-  plsfile=RADIOsrc+name+'.pls'
-  shutil.copy(plsfile,RADIOdest)
-  logofile=logossrc+name+'.jpg'
+  RADIOfile=RADIOsrc+name+'.pls'
+  shutil.copy(RADIOfile,RADIOdest)
+  logofile=logosrc+name+'.jpg'
   if os.path.isfile(logofile):
-    shutil.copy(logofile,logosdest)
-  thumbfile=thumbssrc+name+'.jpg'
+    shutil.copy(logofile,logodest)
+  thumbfile=thumbsrc+name+'.jpg'
   if os.path.isfile(thumbfile):
-    shutil.copy(thumbfile,thumbsdest) 
+    shutil.copy(thumbfile,thumbdest) 
   rowsadded+=1
 
-print(f"{rowsadded} station(s) loaded")
+print("{} station(s) loaded".format(rowsadded))
 
 # finally, force mpd to pickup the changes by bumping the times on all the 
 # .pls files in the RADIO directory and dropping into the shell to run mpc.
