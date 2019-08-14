@@ -40,7 +40,7 @@ Proceed? (y/n): y
 2 station(s) saved
 'tar tf myradios.tar.gz' to see its contents
 ```
-Obviously you need to save the tar file off the current system if you intend to do a clean install of a new release. Otherwise copy or transfer it to the target moOde player. 
+Obviously you need to save the tar file off the current system if you intend to do a clean (re)install. Copy or transfer it to the destination moOde player.
 
 **loadmyradios.py** - On the destination moOde player, ensure the myradios.tar.gz file is in the same directory as loadmyradios.py and from the command line invoke the script as superuser (required because of moOde directory permissions). As above this can be done several ways
 ```
