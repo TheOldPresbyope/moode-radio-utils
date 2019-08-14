@@ -66,7 +66,7 @@ adding station 'MANGORADIO'
 
 **myradios.tar.gz** - an example file created by savemyradios.py on a moOde 6.0.0 player. It contains the data and image files needed to load two stations into the player on which loadmyradios.py is run.
 
-* Grateful Dead Live at Carousel Ballroom 1968 - a pseudo-radio station with a playlist of tracks from the 1968-02-04 concert. The tracks are streamed from the [Live Music Archive](https://archive.org/details/gd1968-02-14.sbd.douglas-cleef.2267.shnf)
+* Grateful Dead Live at Carousel Ballroom 1968 - a pseudo-radio station with a playlist of tracks from the 1968-02-04 concert. The tracks are streamed from the [Live Music Archive](https://archive.org/details/gd1968-02-14.sbd.douglas-cleef.2267.shnf) *NOTE - this "station" was included to show it is technically possible for moOde to stream music from the Live Music Archive. The station logo will not display in the Playback panel while playing these tracks. This is an issue I haven't resolved with moOde and imported .m3u playlists, not with the tools in this repo.*
 * MANGORADIO - a [German Internet radio station](https://mangoradio.de/) selected at random from the [Community Radio Browser]( http://www.radio-browser.info/gui/#!/)
 
 **TODO**
@@ -74,4 +74,4 @@ adding station 'MANGORADIO'
 * The scripts batch save/load all the user-defined radio stations. It would be nice to allow the user to specify the stations to be saved or at least the ones to be loaded.
 * There is a modicum of error checking in the scripts but they are hardly bulletproof. It would be nice to cover more bases.
 * The scripts are basically procedural code. It would be nice to make them more Pythonic.
-* None of this is a priority for me.
+* None of these items is a priority for me.
