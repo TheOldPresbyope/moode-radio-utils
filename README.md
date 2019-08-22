@@ -11,6 +11,19 @@ Existing user-defined stations on the destination player are left untouched and 
 
 These files are not integrated into the moOde UI in any way. All operations take place on the command line of the moOde player.
 
+### A note about user-defined radio stations
+
+To be recognized by these scripts, a user-defined radio station must have at least two components:
+
+* an entry in the cfg_radio table of the moOde database, /var/local/www/db/moode-sqlite3.db
+* a corresponding .pls file in the MPD directory /var/lib/mpd/music/Radio
+
+Optionally, it may also have a .jpg file of the station logo in /var/www/images/radio-logos and a .jpg file of the thumbnail generated from it in /var/www/images/radio-logos/thumbs
+
+All these components are generated when a user clicks on the "+" icon in the Radio Directory and fills in information in the New Station menu which appears.
+
+<b>These scripts ignore .pls files and .jpg files for which there is no corresponding entry in the database</b>
+
 ## Getting the tools onto your moOde player
 
 The easiest way to get these files is to use **git**, which is already installed in moOdeOS. From the command line of each moOde player in a directory writeable by you (your home directory is a good choice)
@@ -32,14 +45,35 @@ chmod +x savemyradios.py
 ./savemyradios.py
 ```
 
-The script creates ***myradios.tar.gz*** in the current working directory. Here's an example of the CLI dialogue:
+The script creates ***myradios.tar.gz*** in the current working directory. Here's three examples of the CLI dialogue:
 ```
-pi@moode:~/ $ ./savemyradios.py
+(a) user-defined radio stations are found
+
+pi@moode:~ $ ./savemyradios.py
 Save user-defined radio stations to 'myradios.tar.gz' in the
 current working directory, overwriting existing file if present
 Proceed? (y/n): y
 2 station(s) saved
 'tar tf myradios.tar.gz' to see its contents
+
+(b) no user-defined radio station is found in the database
+
+pi@moodeLR:~ $ ./savemyradios.py
+Save user-defined radio stations to 'myradios.tar.gz' in the
+current working directory, overwriting existing file if present
+Proceed? (y/n): y
+Oops, no user-defined stations were found
+
+(c) a user-defined radio station is found in the database
+    but corresponding .pls file is not found; no other
+    user-defined radio station is found
+
+pi@moode:~ $ ./savemyradios.py
+Save user-defined radio stations to 'myradios.tar.gz' in the
+current working directory, overwriting existing file if present
+Proceed? (y/n): y
+skipping cfg_radio entry with name= 'test station', no corresponding .pls file
+No stations saved; no file written
 ```
 Obviously you need to save the tar file off the current system if you intend to do a clean (re)install. To use, copy it to the destination moOde player.
 

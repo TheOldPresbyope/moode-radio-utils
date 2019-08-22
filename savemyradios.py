@@ -1,7 +1,9 @@
 #!/usr/bin/python3
 
 # moOde utility to save user-defined radio stations
-
+# Rev 1/20190822 - tell user and don't create empty tar file if
+#                  no usable stations found
+#
 # Select all user-defined radio stations entries in table cfg_radio 
 # in /var/local/www/db/moode-sqlite3.db and use the data to select
 # the associated .pls files and .jpg files.
@@ -112,9 +114,12 @@ with tempfile.TemporaryDirectory() as tmprootdir:
     if os.path.isfile(thumbfile):
       shutil.copy(thumbfile,thumbdest)
   # don't break current context until this file is written
-  shutil.make_archive('myradios','gztar',tmprootdir)    
+  if rowcnt > 0:
+    shutil.make_archive('myradios','gztar',tmprootdir)
+    print("{} station(s) saved".format(rowcnt))
+    print("'tar tf myradios.tar.gz' to see its contents")
+  else:
+    print("No stations saved; no file written")
 
-print("{} station(s) saved".format(rowcnt))
-print("'tar tf myradios.tar.gz' to see its contents")
 # note that temporary directory is removed when the context is
 # exited we we don't have to.
