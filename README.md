@@ -22,7 +22,7 @@ To be recognized by these scripts, a user-defined radio station must have at lea
 * an entry in the cfg_radio table of the moOde database, /var/local/www/db/moode-sqlite3.db
 * a corresponding .pls file in the MPD directory /var/lib/mpd/music/Radio
 
-Optionally, it may also have a .jpg file of the station logo in /var/www/images/radio-logos and a .jpg file of the thumbnail generated from it in /var/www/images/radio-logos/thumbs
+Optionally, it may also have a .jpg file of the station logo in /var/local/www/imagesw/radio-logos and a .jpg file of the thumbnail generated from it in /var/local/www/imagesw/radio-logos/thumbs
 
 All these components are generated when a user clicks on the "+" icon in the Radio Directory and fills in information in the New Station menu which appears.
 
@@ -102,7 +102,7 @@ adding station 'Grateful Dead Live at Carousel Ballroom - 1968'
 
 ```
 
-**myradios.tar.gz** - an example file created by savemyradios.py on a moOde 6.0.0 player. It contains the data and image files needed to load a station into the player on which loadmyradios.py is run. The station is:
+**myradios.tar.gz** - an example file created by savemyradios.py on a moOde 6.7.1 player. It contains the data and image files needed to load a station into the player on which loadmyradios.py is run. The station is:
 
 * Grateful Dead Live at Carousel Ballroom 1968 - a pseudo-radio station with a playlist of tracks from the 1968-02-04 concert. The tracks are streamed from the [Live Music Archive](https://archive.org/details/gd1968-02-14.sbd.douglas-cleef.2267.shnf) *NOTE - this "station" was chosen to show it is technically possible for moOde to stream music from the Live Music Archive. The station logo will not display in the Playback panel while playing these tracks. This is an issue I haven't resolved with moOde and imported .m3u playlists, not with the tools in this repo.*
 
