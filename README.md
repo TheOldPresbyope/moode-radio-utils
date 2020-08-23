@@ -1,10 +1,14 @@
 # Tools to save and load user-defined radio stations in moOde
 
-The files in this repo are intended to aid users of recent vintage [moOde](http://moodeaudio.org) audio players in saving (e.g., exporting) and loading (e.g., importing) their user-defined radio stations in bulk. They have been tested in moOde 5.3.1 (Raspbian Stretch) and moOde 6.0.0 (Raspbian Buster), which means they are known to work in Python 3.5.3 and above.
+The files in this repo are intended to aid users of recent vintage [moOde](http://moodeaudio.org) audio players in saving (e.g., exporting) and loading (e.g., importing) their user-defined radio stations in bulk.
+
+v2.0 - Tested with moOde 6.7.1. Should work with moOde 6.6.0 and 6.7.0 as well. Should continue to work with later releases until there is another change in the moOde database schema for the cfg_radio table or the locations of the various radio directory files. Not compatible with prior releases of moOde or with myfiles.tar.gz files created using v1.0.
+
+v1.0 - Deprecated. Tested in moOde 5.3.1 (Raspbian Stretch) and moOde 6.0.0 (Raspbian Buster). Should work with moOde releases up to 6.5.2. Not compatible with later releases nor with myfiles.tar.gz files created with v2.0.
 
 Possible use-cases include transferring the stations
 * into a freshly installed moOde player
-* between moOde players running the same or different moOde releases
+* between moOde players running the same or different, compatible moOde releases
 * between moOde users
 
 Existing user-defined stations on the destination player are left untouched and stations to be loaded which match existing ones in name are skipped.
@@ -86,7 +90,7 @@ option (2)
 chmod +x loadmyradios.py
 sudo ./loadmyradios.py
 ```
-Once the script has run, refresh the moOde Radio Directory (click the circular arrow in the upper-left of the UI) to see the new entries. (Currently actually need to reboot. See [BUGS](../master/BUGS.md))
+Once the script has run, refresh the moOde Radio Directory (click the circular arrow in the upper-left of the UI) to see the new entries.
 
 Here's an example of the CLI dialogue (using the myradios.tar.gz file in this repo):
 ```
@@ -94,20 +98,17 @@ pi@moode:~/ $ sudo ./loadmyradios.py
 Load user-defined radio stations from myradios.tar.gz  in the current working directory
 Proceed? (y/n): y
 adding station 'Grateful Dead Live at Carousel Ballroom - 1968'
-adding station 'MANGORADIO'
-2 station(s) loaded
+1 station(s) loaded
 
 ```
 
-**myradios.tar.gz** - an example file created by savemyradios.py on a moOde 6.0.0 player. It contains the data and image files needed to load two stations into the player on which loadmyradios.py is run.
+**myradios.tar.gz** - an example file created by savemyradios.py on a moOde 6.0.0 player. It contains the data and image files needed to load a station into the player on which loadmyradios.py is run. The station is:
 
-* Grateful Dead Live at Carousel Ballroom 1968 - a pseudo-radio station with a playlist of tracks from the 1968-02-04 concert. The tracks are streamed from the [Live Music Archive](https://archive.org/details/gd1968-02-14.sbd.douglas-cleef.2267.shnf) *NOTE - this "station" was included to show it is technically possible for moOde to stream music from the Live Music Archive. The station logo will not display in the Playback panel while playing these tracks. This is an issue I haven't resolved with moOde and imported .m3u playlists, not with the tools in this repo.*
-* MANGORADIO - a [German Internet radio station](https://mangoradio.de/) selected at random from the [Community Radio Browser]( http://www.radio-browser.info/gui/#!/)
+* Grateful Dead Live at Carousel Ballroom 1968 - a pseudo-radio station with a playlist of tracks from the 1968-02-04 concert. The tracks are streamed from the [Live Music Archive](https://archive.org/details/gd1968-02-14.sbd.douglas-cleef.2267.shnf) *NOTE - this "station" was chosen to show it is technically possible for moOde to stream music from the Live Music Archive. The station logo will not display in the Playback panel while playing these tracks. This is an issue I haven't resolved with moOde and imported .m3u playlists, not with the tools in this repo.*
 
 **TODO**
-* Fix the need-to-reboot bug.
 * The scripts are hardwired to write/read myfiles.tar.gz. It would be nice to allow the user to specify a name.
 * The scripts batch save/load all the user-defined radio stations. It would be nice to allow the user to specify the stations to be saved or at least the ones to be loaded.
 * There is a modicum of error checking in the scripts but they are hardly bulletproof. It would be nice to cover more bases.
 * The scripts are basically procedural code. It would be nice to make them more Pythonic.
-* Only the first of these items is a priority for me.
+* None of these is likely to be addressed.

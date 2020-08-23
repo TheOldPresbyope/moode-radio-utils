@@ -2,8 +2,12 @@
 
 # moOde utility to load user-defined radio stations into moOde
 # from myradios.tar.gz in the current working directory
-#
 # the myradios.tar.gz file is created by the companion utility savemyradios.py
+#
+# Rev 2/20200822 - revamp for moOde r660 changes to database schema
+#                  and locations of radio-related files; not compatible
+#                  with previous releases of moOde or savemyradio.py
+#                  or their myradios.tar.gz files
 #
 # script must be invoked as superuser because of moOde's directory permissions
 # e.g., sudo ./loadmyradios.py
@@ -36,7 +40,7 @@ myfile = 'myradios.tar.gz'
 # be mindful of '/'
 moodesqlite3='/var/local/www/db/moode-sqlite3.db'
 RADIOdest = '/var/lib/mpd/music/RADIO/'
-logodest = '/var/www/images/radio-logos/'
+logodest = '/var/local/www/imagesw/radio-logos/'
 thumbdest = logodest+'thumbs/'
 
 if not os.path.isfile(myfile):
@@ -63,14 +67,20 @@ tar = tarfile.open(myfile)
 tar.extractall(path=tmpdir)
 tar.close()
 
-# cfg_radio schema: (id , station , name , type , logo)
-#    id is an integer primary key
-#    station is the station URL
-#    name is the station name (which is used as the root of the .pls
+# cfg_radio schema: (id , station , name , type , logo,
+#                    genre, broadcaster, language, country,
+#                    region, bitrate, format)
+# where:
+#    'id' is an integer primary key
+#    'station' is the station URL
+#    'name' is the station name (which is used as the root of the .pls
 #      and .jpg files, but see also logo)
-#    type is 'u' for user-defined or 's' for system-defined 
-#    logo is a filepath or 'local'; user-defined stations appear
-#    always to have logo='local' 
+#    'type' is 'u' for user-defined or 's' for system-defined 
+#    'logo' is a filepath or 'local'; user-defined stations appear
+#           always to have logo='local' 
+#    and the remaining columns are informative text descriptors 
+#    which are self-evident except possibly for the last:
+#    'format' is intended to represent audio encoding such as 'MP3' 
 
 myfile = open(tmpdir+'/radios.json','r')
 radios=json.load(myfile)
@@ -95,7 +105,20 @@ for entry in radios:
   cur = conn.cursor()
   # following command assumes order of columns. The more complicated named-based
   # access to columns might be more future-proof
-  cur.execute("INSERT INTO cfg_radio VALUES (?,?,?,?,?)", (None, entry['station'], name, entry['type'], entry['logo']))
+  cur.execute("INSERT INTO cfg_radio VALUES (?,?,?,?,?,?,?,?,?,?,?,?)",
+              (None,
+               entry['station'],
+               name,
+               entry['type'],
+               entry['logo'],
+               entry['genre'],
+               entry['broadcaster'],
+               entry['language'],
+               entry['country'],
+               entry['region'],
+               entry['bitrate'],
+               entry['format']
+               ))
   conn.commit()
   RADIOfile=RADIOsrc+name+'.pls'
   shutil.copy(RADIOfile,RADIOdest)

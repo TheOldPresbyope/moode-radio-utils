@@ -1,6 +1,9 @@
 #!/usr/bin/python3
 
 # moOde utility to save user-defined radio stations
+# Rev 2/20200822 - revamp for moOde r660 changes to database schema
+#                  and locations of radio-related files; not compatible
+#                  with previous releases of moOde
 # Rev 1/20190822 - tell user and don't create empty tar file if
 #                  no usable stations found
 #
@@ -16,7 +19,6 @@
 #                    'id' is removed because it is irrelevant in exchange
 #                    while 'type' and 'logo' are retained for possible
 #                    use even though at present they appear always
-#                    another db while type and logo appear always
 #                    to be 'u' and 'local' for user-defines
 # ./RADIO        --- dir containing all the .pls files
 # ./logos        --- dir containing the logo .jpg files if they exist
@@ -46,7 +48,7 @@ import json, os, shutil, sqlite3, sys, tempfile
 # moode-specific locations
 moodesqlite3 = '/var/local/www/db/moode-sqlite3.db'
 RADIOsrc = '/var/lib/mpd/music/RADIO/'
-logosrc = '/var/www/images/radio-logos/'
+logosrc = '/var/local/www/imagesw/radio-logos/'
 thumbsrc = logosrc+'thumbs/'
 
 print("Save user-defined radio stations to 'myradios.tar.gz' in the")
@@ -61,22 +63,31 @@ except:
   print("Couldn't connect to " + moodesqlite3)
   sys.exit()
 
-# cfg_radio schema: (id , station , name , type , logo)
-#    id is an integer primary key
-#    station is the station URL
-#    name is the station name (which is used as the root of the .pls
+# cfg_radio schema: (id , station , name , type , logo,
+#                    genre, broadcaster, language, country,
+#                    region, bitrate, format)
+# where:
+#    'id' is an integer primary key
+#    'station' is the station URL
+#    'name' is the station name (which is used as the root of the .pls
 #      and .jpg files, but see also logo)
-#    type is 'u' for user-defined or 's' for system-defined 
-#    logo is a filepath or 'local'; user-defined stations appear
-#    always to have logo='local' 
-
+#    'type' is 'u' for user-defined or 's' for system-defined 
+#    'logo' is a filepath or 'local'; user-defined stations appear
+#           always to have logo='local' 
+#    and the remaining columns are informative text descriptors 
+#    which are self-evident except possibly for the last:
+#    'format' is intended to represent audio encoding such as 'MP3' 
+#    
 # select every row with type='u'
 
 radios=[]
 for row in conn.execute("SELECT * FROM cfg_radio WHERE type='u'"):
   # convert from tuple to dict for better visibility in json file 
   # strip id at same time; it's irrelevant for exchange purposes
-  radios.append({'station':row[1],'name':row[2],'type':row[3],'logo':row[4]})
+  radios.append({'station':row[1],'name':row[2],'type':row[3],'logo':row[4],
+                 'genre':row[5],'broadcaster':row[6],'language':row[7],
+                 'country':row[8],'region':row[9],'bitrate':row[10],
+                 'format':row[11]})
 
 if not radios:
   print('Oops, no user-defined stations were found')
