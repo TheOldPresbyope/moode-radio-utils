@@ -1,3 +1,6 @@
+20201218 - NOTE - moOde 7.0.0 was released today. Changes have occurred in its database schema and additional small thumbnails of logos are created for radio stations. Stay tuned for an updated version of this repo which will suppport saving user-defined stations out of either moOde 6.7.1 or moOde 7.0.0 and importing them into moOde 7.0.0.
+
+
 # Tools to save and load user-defined radio stations in moOde
 
 The files in this repo are intended to aid users of recent vintage [moOde](http://moodeaudio.org) audio players in saving (e.g., exporting) and loading (e.g., importing) their user-defined radio stations in bulk.
