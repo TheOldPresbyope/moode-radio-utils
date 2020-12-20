@@ -1,3 +1,5 @@
+20201219 - It's the holiday season. With the limited time available, a special edition loadmyradios7.py has been created for the sole purpose of loading the data from a myfiles.tar.gz file created in a moOde 6.7.1 player into a moOde 7.0.0 player. Read the rest of this page for background, then read the new [README7](README7.md) page for specific instructions.
+
 20201218 - NOTE - moOde 7.0.0 was released today. Changes have occurred in its database schema and additional small thumbnails of logos are created for radio stations. Stay tuned for an updated version of this repo which will suppport saving user-defined stations out of either moOde 6.7.1 or moOde 7.0.0 and importing them into moOde 7.0.0.
 
 
